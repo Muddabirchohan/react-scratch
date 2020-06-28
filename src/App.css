@@ -1,0 +1,11 @@
+.side-bar {
+  border: 10px;
+  background-color: palegreen !important;
+}
+
+.navbar {
+  padding: 10px;
+  background-color: #e9e9e6;
+  font-size: inherit;
+  color: #301919;
+}
