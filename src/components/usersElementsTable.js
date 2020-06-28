@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { userFetcAction, fetchUsers } from "./../action/userAction";
+import { withRouter } from "react-router-dom";
+import { selectedSidebar } from "../action/globalactions";
+import { selectedUser } from "../action/userAction";
 
 class usersElementsTable extends Component {
   async componentDidMount() {
@@ -15,10 +18,24 @@ class usersElementsTable extends Component {
     dispatch(userFetcAction());
   }
 
+  async onSelectedRow(user) {
+    const { dispatch, history } = this.props;
+    // history.push("/user-details");
+
+    await dispatch(selectedUser(user));
+
+    await dispatch(
+      selectedSidebar({
+        name: user.name,
+        type: "detailedView",
+      })
+    );
+  }
+
   userTableData = () => {
     const { users } = this.props;
     return users.map((item) => (
-      <tr key={item.id}>
+      <tr key={item.id} onClick={this.onSelectedRow.bind(this, item)}>
         <td>{item.name}</td>
         <td>{item.phone}</td>
         <td>{item.username}</td>
@@ -40,23 +57,8 @@ class usersElementsTable extends Component {
     return (
       <div style={{ padding: "35px" }}>
         users
-        <div className="text-right">
-          {/* <button
-            class="btn btn-primary"
-            type="button"
-            onClick={this.fetchUsersList()}
-          > */}
-          {/* {users.length === 0 && (
-              <span
-                class="spinner-border spinner-border-sm"
-                role="status"
-                aria-hidden="true"
-              ></span>
-            )}
-            Refresh
-          </button> */}
-        </div>
-        <table className="table">
+        <div className="text-right"></div>
+        <table className="table table-hover">
           <thead>
             <tr>
               <th>Nmae</th>
@@ -85,9 +87,10 @@ class usersElementsTable extends Component {
 }
 
 const mapStateToProps = function (state) {
+  console.log("userselected", state);
   return {
     users: state.user.users,
   };
 };
 
-export default connect(mapStateToProps)(usersElementsTable);
+export default withRouter(connect(mapStateToProps)(usersElementsTable));

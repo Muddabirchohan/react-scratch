@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import App from "./App";
 import mainLayout from "./Layout/mainLayout";
 import Index from "./Layout/Dashboard";
+import userDetails from "./components/userDetails";
 
 export default function RouterConfig() {
   return (
@@ -11,6 +12,7 @@ export default function RouterConfig() {
         <Switch>
           <Route path="/" component={Index} exact={true} />
           <Route path="/services" component={mainLayout} />
+          <Route path="/user-details" component={userDetails} />
         </Switch>
       </BrowserRouter>
     </div>

@@ -6,11 +6,16 @@ import PostsElementsTable from "../components/postsElementsTable";
 import EvsElementsTable from "../components/evsElementsTable";
 import KmsElementsTable from "../components/kmsElementsTable";
 import UsersElementsTable from "../components/usersElementsTable";
+import UserDetails from "../components/userDetails";
+import PostDetails from "../components/postDetails";
 
 class AppLayout extends React.Component {
   render() {
     const contentSection = () => {
-      const { selectedService } = this.props;
+      const { selectedService, users, posts } = this.props;
+      const userNames = users.map((item) => item.name);
+      const postNames = posts.map((item) => item.name);
+
       if (selectedService.name === "posts") {
         return <PostsElementsTable />;
       } else if (selectedService.name === "evs") {
@@ -19,6 +24,16 @@ class AppLayout extends React.Component {
         return <KmsElementsTable />;
       } else if (selectedService.name === "users") {
         return <UsersElementsTable />;
+      } else if (
+        userNames.includes(selectedService.name) &&
+        selectedService.type === "detailedView"
+      ) {
+        return <UserDetails />;
+      } else if (
+        postNames.includes(selectedService.name) &&
+        selectedService.type === "detailedView"
+      ) {
+        return <PostDetails />;
       }
     };
     return (
@@ -39,9 +54,10 @@ class AppLayout extends React.Component {
 }
 
 const mapStateToProps = function (state) {
-  console.log("selec", state.global.subService);
   return {
     selectedService: state.global.subService,
+    users: state.user.users,
+    posts: state.post.posts,
   };
 };
 

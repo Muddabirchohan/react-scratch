@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { fetchPosts, userFetcPost } from "./../action/postsAction";
+import { selectedSidebar } from "../action/globalactions";
+import { selectedPost } from "../action/postsAction";
 
 class postsElementsTable extends Component {
   async componentDidMount() {
@@ -15,11 +17,25 @@ class postsElementsTable extends Component {
     dispatch(userFetcPost());
   }
 
-  userTableData = () => {
+  async onSelectedRow(user) {
+    const { dispatch, history } = this.props;
+    // history.push("/user-details");
+
+    await dispatch(selectedPost(user));
+
+    await dispatch(
+      selectedSidebar({
+        name: user.name,
+        type: "detailedView",
+      })
+    );
+  }
+
+  postsTableData = () => {
     const { posts } = this.props;
     console.log("posts", posts);
     return posts.map((item) => (
-      <tr key={item.id}>
+      <tr key={item.id} onClick={this.onSelectedRow.bind(this, item)}>
         <td>{item.userId}</td>
         <td>{item.id}</td>
         <td>{item.title}</td>
@@ -32,7 +48,7 @@ class postsElementsTable extends Component {
     return (
       <div style={{ padding: "35px" }}>
         posts
-        <table class="table" style={{ padding: "35px" }}>
+        <table class="table table-hover" style={{ padding: "35px" }}>
           <thead class="thead-dark">
             <tr>
               <th>Name</th>
@@ -51,7 +67,7 @@ class postsElementsTable extends Component {
                 </div>
               </div>
             ) : (
-              this.userTableData()
+              this.postsTableData()
             )}
           </tbody>
         </table>
@@ -61,7 +77,6 @@ class postsElementsTable extends Component {
 }
 
 const mapStateToProps = function (state) {
-  debugger;
   return {
     posts: state.post.posts,
   };

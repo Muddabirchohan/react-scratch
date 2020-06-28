@@ -1,5 +1,6 @@
 let initialState = {
   posts: [],
+  selectedPost: {},
 };
 
 export default function post(state = initialState, action) {
@@ -9,6 +10,12 @@ export default function post(state = initialState, action) {
         ...state,
         posts: action.payload.data,
       };
+    case "SELECTED_POST":
+      return {
+        ...state,
+        selectedPost: action.payload,
+      };
+
     default:
       return state;
   }

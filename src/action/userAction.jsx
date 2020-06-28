@@ -8,3 +8,8 @@ export const userFetcAction = () => ({
   type: "FETCH_USERS",
   payload: data,
 });
+
+export const selectedUser = (user) => ({
+  type: "SELECTED_USER",
+  payload: user,
+});
