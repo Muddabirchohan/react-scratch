@@ -4,41 +4,32 @@ import "../App.css";
 export default class Navbar extends Component {
   render() {
     return (
-      <ul class="nav nav-tabs">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="/">
-            Dashboard
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/services">
-            Services
-          </a>
-
-          {/* <div class="dropdown show">
-            <a
-              class="btn dropdown-toggle"
-              href="#"
-              role="button"
-              id="dropdownMenuLink"
-              data-toggle="dropdown"
-              aria-haspopup="true"
-              aria-expanded="false"
-            >
+      <div
+        style={{
+          backgroundColor: "rgb(55, 142, 255)",
+          color: "white",
+          // position: "fixed",
+          // right: 0,
+          // left: 0,
+          // zIindex: 0,
+          // top: "0",
+          // position: "fixed",
+          // top: "10px",
+        }}
+      >
+        <ul class="nav nav-tabs">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="/">
+              Dashboard
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/services" style={{ color: "white" }}>
               Services
             </a>
-
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-              <a class="dropdown-item" href="#">
-                Users
-              </a>
-              <a class="dropdown-item" href="#">
-                Posts
-              </a>
-            </div>
-    </div>*/}
-        </li>
-      </ul>
+          </li>
+        </ul>
+      </div>
     );
   }
 }

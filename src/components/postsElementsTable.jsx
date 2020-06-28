@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { fetchPosts, userFetcPost } from "./../action/postsAction";
 import { selectedSidebar } from "../action/globalactions";
 import { selectedPost } from "../action/postsAction";
+import axios from "axios";
 
 class postsElementsTable extends Component {
   async componentDidMount() {
@@ -17,29 +18,40 @@ class postsElementsTable extends Component {
     dispatch(userFetcPost());
   }
 
-  async onSelectedRow(user) {
+  async onSelectedRow(post, event) {
     const { dispatch, history } = this.props;
-    // history.push("/user-details");
+    // history.push("/post-details");
+    await dispatch(selectedPost(post));
 
-    await dispatch(selectedPost(user));
-
+    debugger;
     await dispatch(
       selectedSidebar({
-        name: user.name,
+        name: post.name,
         type: "detailedView",
       })
     );
   }
 
+  deletePost() {
+    const { selectedPost } = this.props;
+    axios.delete(
+      `https://jsonplaceholder.typicode.com/posts/${selectedPost?.id}`
+    );
+  }
+
   postsTableData = () => {
     const { posts } = this.props;
-    console.log("posts", posts);
     return posts.map((item) => (
       <tr key={item.id} onClick={this.onSelectedRow.bind(this, item)}>
         <td>{item.userId}</td>
         <td>{item.id}</td>
         <td>{item.title}</td>
         <td>{item.body}</td>
+        <td onClick={this.deletePost.bind(this)}>
+          <button type="button" class="btn btn-danger">
+            Delete
+          </button>
+        </td>
       </tr>
     ));
   };
@@ -79,6 +91,7 @@ class postsElementsTable extends Component {
 const mapStateToProps = function (state) {
   return {
     posts: state.post.posts,
+    selectedPost: state.post.selectedPost,
   };
 };
 

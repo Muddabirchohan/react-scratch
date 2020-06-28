@@ -23,7 +23,6 @@ class usersElementsTable extends Component {
     // history.push("/user-details");
 
     await dispatch(selectedUser(user));
-
     await dispatch(
       selectedSidebar({
         name: user.name,
@@ -40,6 +39,11 @@ class usersElementsTable extends Component {
         <td>{item.phone}</td>
         <td>{item.username}</td>
         <td>{item.website}</td>
+        <td>
+          <button type="button" class="btn btn-danger">
+            Delete
+          </button>
+        </td>
       </tr>
     ));
   };
@@ -72,9 +76,7 @@ class usersElementsTable extends Component {
 
             {users.length === 0 ? (
               <div class="d-flex justify-content-center text-primary">
-                <div class="spinner-border" role="status">
-                  <span class="sr-only">Loading...</span>
-                </div>
+                <div class="spinner-border" role="status"></div>
               </div>
             ) : (
               this.userTableData()
@@ -87,7 +89,6 @@ class usersElementsTable extends Component {
 }
 
 const mapStateToProps = function (state) {
-  console.log("userselected", state);
   return {
     users: state.user.users,
   };

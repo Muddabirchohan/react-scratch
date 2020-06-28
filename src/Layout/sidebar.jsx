@@ -22,6 +22,10 @@ class SideBar extends Component {
     return (
       <div
         style={{
+          position: "fixed",
+          top: 50,
+          width: "200px",
+          // zIndex: 1,
           borderRight: "1px solid silver",
           height: `${window.innerHeight}px`,
         }}
@@ -32,15 +36,13 @@ class SideBar extends Component {
         >
           <li class="list-group-item" id="users">
             <span id="users">
-              {" "}
-              <img src={user} width="20px" />{" "}
+              <img src={user} width="20px" />
             </span>
             Users
-          </li>{" "}
+          </li>
           <li class="list-group-item" id="posts">
             <span id="posts">
-              {" "}
-              <img src={server} width="20px" />{" "}
+              <img src={server} width="20px" />
             </span>
             Posts
           </li>

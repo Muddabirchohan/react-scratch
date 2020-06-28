@@ -27,7 +27,6 @@ class PostDetails extends Component {
 }
 
 const mapStateToProps = function (state) {
-  console.log("posts", state.post);
   return {
     posts: state.post.posts,
     selectedPost: state.post.selectedPost,
